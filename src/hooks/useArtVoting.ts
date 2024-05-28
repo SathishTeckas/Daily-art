@@ -57,7 +57,6 @@ export const useVoting = (): UseVotingReturn => {
       console.log(data);
       if (response.ok) {
          if (await updateArt(voteData.artId)) {
-          setVotes((prevVotes) => [...prevVotes, voteData]); 
           setError(null);
           return true;
          }

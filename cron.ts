@@ -7,7 +7,7 @@ const cronJob = new CronJob(
     async function() {
         try {
             const response = await fetch(`${baseUrl}/api/mintNfts`, { 
-                method: 'POST'
+                method: 'GET'
             });
 
             if (response.ok) {
