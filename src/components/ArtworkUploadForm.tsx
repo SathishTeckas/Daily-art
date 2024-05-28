@@ -120,16 +120,11 @@ export const ArtworkUploadForm: React.FC<ArtworkUploadFormProps> = ({ onClose })
             <div key={index} className='mb-1'>
               {index===0 &&(
                   <label className="block text-sm font-medium text-gray-900" style={{fontWeight:500, fontSize: 13, color:'#fff'}}>
-                  Variation A
+                  Variation
                  </label>
               )
               }
-               {index===2 &&(
-                  <label className="block text-sm font-medium text-gray-900" style={{fontWeight:500, fontSize: 13, color:'#fff'}}>
-                  Variation B
-                 </label>
-              )
-              }<label 
+              <label 
               htmlFor={`fileInput-${index}`}  
               className="cursor-pointer bg-white text-sm text-gray-900 rounded-lg focus:outline-none pb-2 mt-2" 
               style={{ 
