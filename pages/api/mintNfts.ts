@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { countVotesAndUpdateBattle } from '../../utils/countVotesAndBattles';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
+  if (req.method === 'GET') {
     try {
       console.log("called");
         await countVotesAndUpdateBattle();
