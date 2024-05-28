@@ -1,15 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import { countVotesAndUpdateBattle } from '../../utils/countVotesAndBattles';
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'GET') {
+export async function GET() {
     try {
       console.log("called");
         await countVotesAndUpdateBattle();
-      res.status(200).json({ success: true });
+        return NextResponse.json({ ok: true });
     } catch (error) {
-      res.status(500).json({ success: false, error: 'Error' });
+      return NextResponse.json({ ok: false });
     }
-  } else {
-    res.status(405).json({ success: false, message: 'Method Not Allowed' });
-  }
 }
