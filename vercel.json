@@ -7,8 +7,5 @@
     "path":  "/api/test",
     "schedule": "*/1 * * * *"
   }]
-   "functions": {
-    "api/test": {
-      "maxDuration": 30 // This function can run for a maximum of 30 seconds
-    }
 }
+
