@@ -8,10 +8,3 @@
     "schedule": "*/1 * * * *"
   }],
 }
-{
-   "functions": {
-    "api/mintNfts": {
-      "maxDuration": 300 // This function can run for a maximum of 300 seconds
-    }
-}
-}
