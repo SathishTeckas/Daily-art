@@ -1,12 +1,15 @@
 {
   "crons": [{
     "path":  "/api/mintNfts",
-    "schedule": "*/1 * * * *",
-    "maxDuration": 300
+    "schedule": "*/1 * * * *"
   },
   {
     "path":  "/api/test",
-    "schedule": "*/1 * * * *",
-    "maxDuration": 300
-  }]
+    "schedule": "*/1 * * * *"
+  }],
+  "functions": {
+    "app/api/**/*": {
+      "maxDuration": 5 // All functions can run for a maximum of 5 seconds
+    }
+  }
 }
