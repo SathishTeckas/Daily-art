@@ -23,5 +23,4 @@ const cronJob = new CronJob(
     true,
     'America/Los_Angeles'
 );
-
 cronJob.start(); 
