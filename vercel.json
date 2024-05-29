@@ -8,7 +8,7 @@
     "schedule": "*/1 * * * *"
   }],
   "functions": {
-    "api/mintNfts": {
+    "pages/api/mintNfts": {
       "maxDuration": 300
     }
   }
