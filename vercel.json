@@ -9,7 +9,7 @@
   }],
   "functions": {
     "pages/api/mintNfts": {
-      "maxDuration": 300
+      "maxDuration": 100
     }
   }
 }
