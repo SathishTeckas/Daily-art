@@ -2,14 +2,5 @@
   "crons": [{
     "path":  "/api/mintNfts",
     "schedule": "*/1 * * * *"
-  },
-  {
-    "path":  "/api/test",
-    "schedule": "*/1 * * * *"
-  }],
-  "functions": {
-    "pages/api/mintNfts": {
-      "maxDuration": 100
-    }
-  }
+  }]
 }
