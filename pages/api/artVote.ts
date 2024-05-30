@@ -29,7 +29,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     } catch (error) {
       res.status(400).json({ success: false, error });
     }
-  }
+
+    }
   } if (req.method === 'GET') {
     try {
       const { participantId, artId } = req.query;
