@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }else{
 
     // Create a new vote
+    
     try {
       const vote = await UpVoting.create({ participantId, artId});
       console.log(vote);
