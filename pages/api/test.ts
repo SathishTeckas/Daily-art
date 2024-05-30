@@ -1,19 +1,16 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import {createBattle} from '../../utils/battleSelection';
+import { NextApiRequest, NextApiResponse } from 'next';
 
+import {createBattle} from '../../utils/battleSelection';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    switch (req.method) {
-        case 'GET':
-            const battles =  await createBattle();
-            console.log(battles);
-            return res.status(200).json(battles);
-      default:
-        res.setHeader('Allow', ['POST', 'GET', 'DELETE']);
-        return res.status(405).end(`Method ${req.method} Not Allowed`);
+  if (req.method === 'GET') {
+    try {
+       
+        await createBattle();
+      res.status(200).json({ success: true });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Error' });
     }
-  } catch (error) {
-    console.error('API error:', error);
-    return res.status(500).json({ error: "Server Error" });
+  } else {
+    res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
 }

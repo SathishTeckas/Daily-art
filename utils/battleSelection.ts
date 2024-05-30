@@ -52,7 +52,7 @@ export const createBattle = async (): Promise<any> => {
       artAVotes: 0,
       artBVotes: 0,
     };
-    //console.log(battleData);
+    console.log(battleData);
     const newBattle = new Battle(battleData);
    const res = await newBattle.save();
    console.log(res);
