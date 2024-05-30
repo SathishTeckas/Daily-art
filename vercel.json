@@ -1,6 +1,6 @@
 {
   "crons": [{
     "path":  "/api/mintNfts",
-    "schedule": "*/5 * * * *"
+    "schedule": "0 * * * *"
   }]
 }
