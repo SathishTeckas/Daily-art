@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     console.log(existingVote);
     if (existingVote) {
       return res.status(400).json({ success: false, message: "Participant has already voted for this art." });
-    }
+    }else{
 
     // Create a new vote
     try {
@@ -28,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       res.status(201).json({ success: true, data: vote });
     } catch (error) {
       res.status(400).json({ success: false, error });
+    }
     }
   } if (req.method === 'GET') {
     try {
