@@ -28,7 +28,7 @@ export const createBattle = async (): Promise<any> => {
      const existingBattleWithArtA = await Battle.findOne({ $or: [{ artAId: artA._id }, { artBId: artA._id }] });
     const existingBattleWithArtB = await Battle.findOne({ $or: [{ artAId: artB._id }, { artBId: artB._id }] });
     if (existingBattleWithArtA || existingBattleWithArtB) {
-      throw new Error("One or both of the selected artworks are already in a battle");
+      console.log("One or both of the selected artworks are already in a battle");
     } 
     const startDate = await getNextAvailableDate();
     startDate.setHours(0, 0, 0, 0);
@@ -52,12 +52,10 @@ export const createBattle = async (): Promise<any> => {
       artAVotes: 0,
       artBVotes: 0,
     };
-    console.log(battleData);
     const newBattle = new Battle(battleData);
    const res = await newBattle.save();
-   console.log(res);
     return newBattle;
   } else {
-    throw new Error("Not enough artworks to create a battle");
+    console.log("Not enough artworks to create a battle");
   }
 };
