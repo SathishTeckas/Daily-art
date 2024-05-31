@@ -77,17 +77,18 @@ const BattleTable: React.FC<{ artData: ArtData[] }> = ({ artData }) => {
         <tbody>
           {artData.slice(-10).map((art, index) => (
             <tr key={index} className="border-b bg-white">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium" style={{ color: 'black' }}>
-                <div className="flex justify-center">
-                  <Image
-                    src={art.grayScale}
-                    alt="Description"
-                    width={100} // Adjust the width for mobile
-                    height={100} // Adjust the height for mobile
-                    unoptimized
-                  />
-                </div>
-              </td>
+                <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium" style={{ color: 'black' }}>
+                                        <div className="flex justify-center">
+                                            <Image
+                                                src={art.grayScale}
+                                                alt="Art A"
+                                                width={100} 
+                                                height={100} 
+                                                className="sm:w-48 sm:h-48 w-36 h-36"
+                                                unoptimized
+                                            />
+                                        </div>
+                                    </td>
               <td className="px-6 py-4 text-xs sm:text-sm font-small break-all" style={{ color: 'black' }}>
             {art.artistId}
           </td>
