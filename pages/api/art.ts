@@ -9,7 +9,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const saveart = await scheduleArt(art);
         return res.status(201).json(saveart);
         case 'GET':
-            const arts = await findAllArts();
+          const page = parseInt(req.query.page as string) || 1;
+          const limit = parseInt(req.query.limit as string) || 10;
+          const arts = await findAllArts(page, limit);
             return res.status(200).json(arts);
         case 'PUT':
           const { id } = req.query;

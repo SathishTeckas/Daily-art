@@ -5,9 +5,9 @@ import Image from 'next/image';
 
 const PreviousArtTable: React.FC<{ toggleUploadModal: () => void }> = ({ toggleUploadModal }) => {
     const [previousBattles, setPreviousBattles] = useState<BattleData[]>([]);
-    const { battles, error, loading } = useFetchBattles();
+    const { battles, error, loading,fetchMoreBattles} = useFetchBattles();
     const { isConnected, selector, connect, activeAccountId } = useMbWallet();
-
+    const [page, setPage] = useState(1);
     console.log("Fetched battles from hook:", battles);
 
     useEffect(() => {
@@ -18,6 +18,18 @@ const PreviousArtTable: React.FC<{ toggleUploadModal: () => void }> = ({ toggleU
     }, [battles]);
 
     console.log("Previous Battles in state:", previousBattles);
+
+    const handleNext = () => {
+        setPage(prevPage => prevPage + 1);
+        fetchMoreBattles(page + 1);
+      };
+    
+      const handlePrevious = () => {
+        if (page > 1) {
+          setPage(prevPage => prevPage - 1);
+          fetchMoreBattles(page - 1);
+        }
+      };
 
     return (
         <div className="battle-table mt-8 pb-10 flex flex-col items-center w-full">
@@ -33,7 +45,7 @@ const PreviousArtTable: React.FC<{ toggleUploadModal: () => void }> = ({ toggleU
                             </tr>
                         </thead>
                         <tbody>
-                            {previousBattles.slice(-10).map((battle, index) => (
+                            {previousBattles.map((battle, index) => (
                                 <tr key={index} className="border-b bg-white">
                                     <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium" style={{ color: 'black' }}>
                                         <div className="flex justify-center">
@@ -66,8 +78,24 @@ const PreviousArtTable: React.FC<{ toggleUploadModal: () => void }> = ({ toggleU
                             ))}
                         </tbody>
                     </table>
+
                 </div>
+                <nav className="flex justify-center flex-wrap gap-4 mt-2">
+          <a
+            className={`flex items-center justify-center py-2 px-3 rounded font-medium select-none border text-gray-900 dark:text-white bg-white dark:bg-gray-800 transition-colors ${page <= 1 ? 'cursor-not-allowed' : 'hover:border-gray-600 hover:bg-gray-400 hover:text-white dark:hover:text-white'}`}
+            onClick={page > 1 ? handlePrevious : undefined}
+          >
+            Previous
+          </a>
+          <a
+            className="flex items-center justify-center py-2 px-3 rounded font-medium select-none border text-gray-900 dark:text-white bg-white dark:bg-gray-800 transition-colors hover:border-gray-600 hover:bg-gray-400 hover:text-white dark:hover:text-white"
+            onClick={handleNext}
+          >
+            Next
+          </a>
+        </nav>
             </div>
+      
         </div>
     );
     

@@ -5,15 +5,28 @@ import Image from 'next/image';
 import { useVoting } from '../hooks/useArtVoting';
 const UpcomingArtTable: React.FC<{ toggleUploadModal: () => void }> = ({ toggleUploadModal }) => {
   const [upcomingArts, setUpcomingArts] = useState<ArtData[]>([]);
-  const { arts, error, loading } = useFetchArts();
+  const { arts, error, loading, fetchMoreArts } = useFetchArts();
   const { isConnected, selector, connect, activeAccountId } = useMbWallet();
+  const [page, setPage] = useState(1);
   useEffect(() => {
     if (arts) {
       console.log("Upcoming Arts", arts);
       setUpcomingArts(arts);
     }
   }, [arts]);
-  if (loading) return <p>Loading battles...</p>;
+
+  const handleNext = () => {
+    setPage(prevPage => prevPage + 1);
+    fetchMoreArts(page + 1);
+  };
+
+  const handlePrevious = () => {
+    if (page > 1) {
+      setPage(prevPage => prevPage - 1);
+      fetchMoreArts(page - 1);
+    }
+  };
+  if (loading) return <p>Loading... arts</p>;
   if (error) return <p>Error loading battles: {error}</p>;
 
   return (
@@ -28,6 +41,20 @@ const UpcomingArtTable: React.FC<{ toggleUploadModal: () => void }> = ({ toggleU
     </div>
       </div>
       <BattleTable artData={upcomingArts} />
+      <nav className="flex justify-center flex-wrap gap-4 mt-2">
+          <a
+            className={`flex items-center justify-center py-2 px-3 rounded font-medium select-none border text-gray-900 dark:text-white bg-white dark:bg-gray-800 transition-colors ${page <= 1 ? 'cursor-not-allowed' : 'hover:border-gray-600 hover:bg-gray-400 hover:text-white dark:hover:text-white'}`}
+            onClick={page > 1 ? handlePrevious : undefined}
+          >
+            Previous
+          </a>
+          <a
+            className="flex items-center justify-center py-2 px-3 rounded font-medium select-none border text-gray-900 dark:text-white bg-white dark:bg-gray-800 transition-colors hover:border-gray-600 hover:bg-gray-400 hover:text-white dark:hover:text-white"
+            onClick={handleNext}
+          >
+            Next
+          </a>
+        </nav>
     </div>
   </div>
   
@@ -65,6 +92,7 @@ const BattleTable: React.FC<{ artData: ArtData[] }> = ({ artData }) => {
   };
 
   return (
+    <>
       <table className="min-w-full mt-4">
         <thead>
           <tr className="bg-white">
@@ -78,17 +106,17 @@ const BattleTable: React.FC<{ artData: ArtData[] }> = ({ artData }) => {
           {artData.slice(-10).map((art, index) => (
             <tr key={index} className="border-b bg-white">
                 <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium" style={{ color: 'black' }}>
-                                        <div className="flex justify-center">
-                                            <Image
-                                                src={art.grayScale}
-                                                alt="Art A"
-                                                width={100} 
-                                                height={100} 
-                                                className="sm:w-48 sm:h-48 w-36 h-36"
-                                                unoptimized
-                                            />
-                                        </div>
-                                    </td>
+                      <div className="flex justify-center">
+                    <Image
+                        src={art.grayScale}
+                        alt="Art A"
+                        width={100} 
+                        height={100} 
+                        className="sm:w-48 sm:h-48 w-36 h-36"
+                        unoptimized
+                    />
+                </div>
+            </td>
               <td className="px-6 py-4 text-xs sm:text-sm font-small break-all" style={{ color: 'black' }}>
             {art.artistId}
           </td>
@@ -102,8 +130,12 @@ const BattleTable: React.FC<{ artData: ArtData[] }> = ({ artData }) => {
               </td>
             </tr>
           ))}
+          
         </tbody>
+        
       </table>
+
+      </>
     );
     
   

@@ -11,12 +11,14 @@ export async function scheduleArt(data: any): Promise<any> {
   return newArt.save();
 }
 
-export const findAllArts = async (): Promise<any> => {
+export const findAllArts = async (page: number, limit: number): Promise<any> => {
   await connectToDatabase();
-  const date = new Date();
-  return ArtTable.find({isCompleted:false}).sort({ upVotes: -1 });
+  const skip = (page - 1) * limit;
+  return ArtTable.find({ isCompleted: false })
+    .sort({ upVotes: -1 })
+    .skip(skip)
+    .limit(limit);
 };
-
 export const updateArtById = async (id: any): Promise<any> => {
   await connectToDatabase();
   return ArtTable.findByIdAndUpdate(
