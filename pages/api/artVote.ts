@@ -20,9 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (existingVote) {
       return res.status(400).json({ success: false, message: "Participant has already voted for this art." });
     }else{
-
-    // Create a new vote
-    
     try {
       const vote = await UpVoting.create({ participantId, artId});
       console.log(vote);

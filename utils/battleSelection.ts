@@ -4,15 +4,15 @@ import Battle from "../model/Battle";
 
 export async function getNextAvailableDate(): Promise<Date> {
   await connectToDatabase();
-  const latestBattle = await Battle.findOne().sort({ battleEndTime: -1 });
+  const latestBattle = await Battle.findOne().sort({ endTime: -1 });
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  if (!latestBattle || latestBattle.battleEndTime < today) {
+  if (!latestBattle || latestBattle.endTime < today) {
     return today;
   }
 
-  const nextDay = new Date(latestBattle.battleEndTime);
+  const nextDay = new Date(latestBattle.endTime);
   nextDay.setDate(nextDay.getDate() + 1);
   return nextDay;
 }
