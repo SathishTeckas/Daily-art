@@ -14,7 +14,7 @@ export async function scheduleArt(data: any): Promise<any> {
 export const findAllArts = async (): Promise<any> => {
   await connectToDatabase();
   const date = new Date();
-  return ArtTable.find({isCompleted:false});
+  return ArtTable.find({isCompleted:false}).sort({ upVotes: -1 });
 };
 
 export const updateArtById = async (id: any): Promise<any> => {
